@@ -1,0 +1,23 @@
+{
+  "manifest_version": 2,
+
+  "name": "BOT",
+  "description": "BOT",
+  "version": "1.0",
+
+    "background": {
+    "scripts": [
+      "background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_title": "Inject!"
+  },
+  "permissions": [
+    "https://*/*",
+    "http://*/*",
+     "activeTab"
+  ]
+
+}
