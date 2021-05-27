@@ -15,19 +15,38 @@ async function go({state, age, vaccine, type, n, mode, searchIntervalInSeconds, 
     await sleep(1000)
     $(".mat-option-text").each( (i, e) => { if ($(e).text().trim() === state) $(e).click() })
     await sleep(500)
-    var districts = dts;console.log(districts);
+    var districts = []
     console.log("Waiting for districts to load")
-    do {
+   do {
         $("mat-select")[1].click()
         await sleep(100)
+        
         districts = $(".mat-option-text")
     } while (districts.length === 0)
+    var len=districts.length;
+   var distr=[]
+    for(var j=0;j<len;j++){
+        for(var k=0;k<dts.length;k++){
+             if(dts[k]==districts[j].innerText){
+              distr.push(districts[j])
+             }
+         }
+     }
+   
+    districts=distr
+    
+
     console.log(districts.length, " Districts loaded")
-    for (i = 0; i < districts.length; i++) {
+    for (i = 0; i <districts.length; i++) {
         $("mat-select")[1].click()
         await sleep(100)
-        dEle = $(".mat-option-text")[i]
+    
+    
+        dEle = districts[i]
         dEle.click()
+     
+
+
         console.log("Searching district: ", dEle.innerText)
         $(".district-search")[0].click()
         await sleep(100)
@@ -79,7 +98,7 @@ async function go({state, age, vaccine, type, n, mode, searchIntervalInSeconds, 
     
 }
 
-var ar=JSON.parse("{\"districts\":[\"BBMP\",\"Bangalore Rural\",\"Bangalore Urban\"],\"state\":\"Karnataka\",\"age\":\"Age 18+\"}")
+var ar=JSON.parse("{\"dts\":[\"BBMP\",\"Bangalore Rural\",\"Bangalore Urban\"],\"state\":\"Karnataka\",\"age\":\"Age 18+\"}")
 go(ar)
 
 alert('inserted self... giggity');
